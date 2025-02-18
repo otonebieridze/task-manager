@@ -1,9 +1,10 @@
 import './App.css'
+import Board from './components/Board/Board'
 
 function App() {
   return (
     <div>
-      <h1>Vite + React</h1>
+      <Board />
     </div>
   )
 }

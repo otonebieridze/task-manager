@@ -1,0 +1,11 @@
+.board {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  background-color: #f4f4f9;
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+}
