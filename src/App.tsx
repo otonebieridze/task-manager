@@ -1,12 +1,13 @@
-import './App.css'
-import Board from './components/Board/Board'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Board from "./components/Board";
 
 function App() {
   return (
-    <div>
+    <DndProvider backend={HTML5Backend}>
       <Board />
-    </div>
-  )
+    </DndProvider>
+  );
 }
 
-export default App
+export default App;
