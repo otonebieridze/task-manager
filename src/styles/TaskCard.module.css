@@ -23,7 +23,6 @@
 .taskCard div {
   font-size: 17px;
   font-weight: 500;
-  cursor: pointer;
 }
 
 .editContainer {
@@ -68,4 +67,22 @@
 }
 .delete-button:hover {
   background-color: #d32f2f;
+}
+
+.taskTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  cursor: text;
+}
+.taskTitle:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  transform: scale(1.02);
+}
+.taskTitle:active {
+  background-color: rgba(0, 123, 255, 0.2);
+  transform: scale(0.98);
 }

@@ -56,7 +56,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
           </button>
         </div>
       ) : (
-        <div onClick={handleEditClick}>{title}</div>
+        <div onClick={handleEditClick} className={styles.taskTitle}>
+          {title}
+        </div>
       )}
       <button onClick={handleDeleteClick} className={styles["delete-button"]}>
         Delete
