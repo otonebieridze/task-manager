@@ -1,8 +1,8 @@
 .taskCard {
   padding: 10px;
-  margin: 8px 0;
-  background-color: white;
-  border: 1px solid black;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 4px;
   cursor: grab;
   transition: transform 0.2s ease;
@@ -11,4 +11,39 @@
 .taskCard.dragging {
   opacity: 0.5;
   transform: scale(1.05);
+}
+
+.editContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editContainer input {
+  flex-grow: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.editContainer input:focus {
+  border-color: #007bff;
+}
+
+.editContainer button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.editContainer button:hover {
+  background-color: #218838;
 }
