@@ -1,16 +1,29 @@
 .taskCard {
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
+  gap: 15px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: grab;
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.taskCard:hover {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .taskCard.dragging {
   opacity: 0.5;
   transform: scale(1.05);
+}
+
+.taskCard div {
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .editContainer {
@@ -28,22 +41,31 @@
   outline: none;
   transition: border-color 0.2s ease-in-out;
 }
-
 .editContainer input:focus {
   border-color: #007bff;
 }
 
-.editContainer button {
+.taskCard button {
   padding: 8px 12px;
   font-size: 14px;
   border: none;
-  background-color: #28a745;
-  color: white;
-  cursor: pointer;
   border-radius: 4px;
+  cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
-.editContainer button:hover {
+.save-button {
+  background-color: #28a745;
+  color: white;
+}
+.save-button:hover {
   background-color: #218838;
+}
+
+.delete-button {
+  background-color: #ce0f01;
+  color: white;
+}
+.delete-button:hover {
+  background-color: #d32f2f;
 }

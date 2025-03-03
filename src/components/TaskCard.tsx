@@ -17,7 +17,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
     }),
   });
 
-  const { updateTask } = useTasks();
+  const { updateTask, deleteTask } = useTasks();
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
 
@@ -34,6 +34,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
     setIsEditing(false);
   };
 
+  const handleDeleteClick = () => {
+    deleteTask(id);
+  };
+
   return (
     <div
       ref={drag as unknown as React.Ref<HTMLDivElement>}
@@ -46,15 +50,17 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
             value={newTitle}
             onChange={handleTitleChange}
             onBlur={handleSaveClick}
-            className={styles.input}
           />
-          <button onClick={handleSaveClick} className={styles.button}>
+          <button onClick={handleSaveClick} className={styles["save-button"]}>
             Save
           </button>
         </div>
       ) : (
         <div onClick={handleEditClick}>{title}</div>
       )}
+      <button onClick={handleDeleteClick} className={styles["delete-button"]}>
+        Delete
+      </button>
     </div>
   );
 };
