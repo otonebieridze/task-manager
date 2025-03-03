@@ -5,3 +5,60 @@
   background-color: #f4f4f4;
   min-height: 80vh;
 }
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.taskForm {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  gap: 10px;
+}
+
+.taskForm input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.taskForm input:focus {
+  border-color: #007bff;
+}
+
+.taskForm button {
+  padding: 10px 16px;
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.taskForm button:hover {
+  background-color: #0056b3;
+}
+
+.columns {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+}

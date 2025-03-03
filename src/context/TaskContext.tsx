@@ -9,6 +9,7 @@ interface Task {
 interface TaskContextType {
   tasks: Task[];
   moveTask: (taskId: number, newColumn: string) => void;
+  addTask: (title: string) => void;
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -38,8 +39,17 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const addTask = (title: string) => {
+    const newTask = {
+      id: Date.now(),
+      title,
+      column: "todo",
+    };
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
   return (
-    <TaskContext.Provider value={{ tasks, moveTask }}>
+    <TaskContext.Provider value={{ tasks, moveTask, addTask }}>
       {children}
     </TaskContext.Provider>
   );
