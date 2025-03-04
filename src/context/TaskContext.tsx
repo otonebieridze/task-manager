@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface Task {
   id: number;
@@ -27,11 +27,14 @@ export const useTasks = () => {
 export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: 1, title: "Task 1", column: "todo" },
-    { id: 2, title: "Task 2", column: "todo" },
-    { id: 3, title: "Task 3", column: "inProgress" },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const moveTask = (taskId: number, newColumn: string) => {
     setTasks((prevTasks) =>
