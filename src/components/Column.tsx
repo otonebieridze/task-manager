@@ -14,7 +14,7 @@ const Column: React.FC<ColumnProps> = ({ title, columnId }) => {
 
   const [{ isOver }, drop] = useDrop({
     accept: "TASK",
-    drop: (item: { id: number }) => moveTask(item.id, columnId),
+    drop: (item: { id: string }) => moveTask(item.id, columnId),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),

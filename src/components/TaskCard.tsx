@@ -4,7 +4,7 @@ import { useTasks } from "../context/TaskContext";
 import styles from "../styles/TaskCard.module.css";
 
 interface TaskCardProps {
-  id: number;
+  id: string;
   title: string;
 }
 

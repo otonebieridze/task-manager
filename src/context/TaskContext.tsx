@@ -1,17 +1,26 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { db } from "../config/firebase";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   column: string;
 }
 
 interface TaskContextType {
   tasks: Task[];
-  moveTask: (taskId: number, newColumn: string) => void;
-  addTask: (title: string) => void;
-  updateTask: (taskId: number, newTitle: string) => void;
-  deleteTask: (taskId: number) => void;
+  moveTask: (taskId: string, newColumn: string) => void;
+  addTask: (title: string, column: string) => void;
+  deleteTask: (taskId: string) => void;
+  updateTask: (taskId: string, newTitle: string) => void;
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -27,46 +36,55 @@ export const useTasks = () => {
 export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [tasks, setTasks] = useState<Task[]>(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    return savedTasks ? JSON.parse(savedTasks) : [];
-  });
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  const moveTask = (taskId: number, newColumn: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, column: newColumn } : task
-      )
-    );
-  };
-
-  const addTask = (title: string) => {
-    const newTask = {
-      id: Date.now(),
-      title,
-      column: "todo",
+    const fetchTasks = async () => {
+      const querySnapshot = await getDocs(collection(db, "tasks"));
+      setTasks(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Task))
+      );
     };
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    fetchTasks();
+  }, []);
+
+  const moveTask = async (taskId: string, newColumn: string) => {
+    try {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, column: newColumn } : task
+        )
+      );
+      const taskRef = doc(db, "tasks", taskId);
+      await updateDoc(taskRef, { column: newColumn });
+    } catch (error) {
+      console.error("Error moving task:", error);
+    }
   };
 
-  const updateTask = (taskId: number, newTitle: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
+  const addTask = async (title: string, column: string) => {
+    const docRef = await addDoc(collection(db, "tasks"), { title, column });
+    setTasks([...tasks, { id: docRef.id, title, column }]);
+  };
+
+  const updateTask = async (taskId: string, newTitle: string) => {
+    setTasks(
+      tasks.map((task) =>
         task.id === taskId ? { ...task, title: newTitle } : task
       )
     );
+    await updateDoc(doc(db, "tasks", taskId), { title: newTitle });
   };
 
-  const deleteTask = (taskId: number) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  const deleteTask = async (taskId: string) => {
+    setTasks(tasks.filter((task) => task.id !== taskId));
+    await deleteDoc(doc(db, "tasks", taskId));
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, moveTask, addTask, updateTask, deleteTask }}>
+    <TaskContext.Provider
+      value={{ tasks, moveTask, addTask, updateTask, deleteTask }}
+    >
       {children}
     </TaskContext.Provider>
   );

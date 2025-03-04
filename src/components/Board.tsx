@@ -13,7 +13,7 @@ const Board: React.FC = () => {
       setTaskTitle("");
       return;
     }
-    addTask(taskTitle);
+    addTask(taskTitle, "todo");
     setTaskTitle("");
   };
 
