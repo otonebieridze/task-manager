@@ -14,14 +14,23 @@ interface Task {
   id: string;
   title: string;
   column: string;
+  priority: "High" | "Medium" | "Low";
 }
 
 interface TaskContextType {
   tasks: Task[];
   moveTask: (taskId: string, newColumn: string) => void;
-  addTask: (title: string, column: string) => void;
+  addTask: (
+    title: string,
+    column: string,
+    priority: "High" | "Medium" | "Low"
+  ) => void;
   deleteTask: (taskId: string) => void;
-  updateTask: (taskId: string, newTitle: string) => void;
+  updateTask: (
+    taskId: string,
+    newTitle: string,
+    priority: "High" | "Medium" | "Low"
+  ) => void;
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -63,29 +72,46 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const addTask = async (title: string, column: string) => {
-    const docRef = await addDoc(collection(db, "tasks"), { title, column });
-    setTasks([...tasks, { id: docRef.id, title, column }]);
+  const addTask = async (
+    title: string,
+    column: string,
+    priority: "High" | "Medium" | "Low"
+  ) => {
+    const docRef = await addDoc(collection(db, "tasks"), {
+      title,
+      column,
+      priority,
+    });
+    setTasks([...tasks, { id: docRef.id, title, column, priority }]);
 
     toast.success("Task added successfully!");
   };
 
-  const updateTask = async (taskId: string, newTitle: string) => {
+  const updateTask = async (
+    taskId: string,
+    newTitle: string,
+    newPriority: "High" | "Medium" | "Low"
+  ) => {
     setTasks(
       tasks.map((task) =>
-        task.id === taskId ? { ...task, title: newTitle } : task
+        task.id === taskId
+          ? { ...task, title: newTitle, priority: newPriority }
+          : task
       )
     );
-    await updateDoc(doc(db, "tasks", taskId), { title: newTitle });
-
     toast("Task updated!", { icon: "✏️", style: { background: "#FFA500" } });
+
+    await updateDoc(doc(db, "tasks", taskId), {
+      title: newTitle,
+      priority: newPriority,
+    });
   };
 
   const deleteTask = async (taskId: string) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
-    await deleteDoc(doc(db, "tasks", taskId));
-
     toast.error("Task deleted!");
+
+    await deleteDoc(doc(db, "tasks", taskId));
   };
 
   return (

@@ -6,6 +6,7 @@ import { useTasks } from "../context/TaskContext";
 const Board: React.FC = () => {
   const { addTask } = useTasks();
   const [taskTitle, setTaskTitle] = useState("");
+  const [priority, setPriority] = useState<"High" | "Medium" | "Low">("Medium");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,7 +14,7 @@ const Board: React.FC = () => {
       setTaskTitle("");
       return;
     }
-    addTask(taskTitle, "todo");
+    addTask(taskTitle, "todo", priority);
     setTaskTitle("");
   };
 
@@ -26,6 +27,16 @@ const Board: React.FC = () => {
           value={taskTitle}
           onChange={(e) => setTaskTitle(e.target.value)}
         />
+        <select
+          value={priority}
+          onChange={(e) =>
+            setPriority(e.target.value as "High" | "Medium" | "Low")
+          }
+        >
+          <option value="High">🔥 High</option>
+          <option value="Medium">⚡ Medium</option>
+          <option value="Low">✅ Low</option>
+        </select>
         <button type="submit">Add Task</button>
       </form>
 

@@ -86,3 +86,19 @@
   background-color: rgba(0, 123, 255, 0.2);
   transform: scale(0.98);
 }
+
+.priority {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+.high {
+  color: #ff3b30;
+}
+.medium {
+  color: #ff9500;
+}
+.low {
+  color: #34c759;
+}

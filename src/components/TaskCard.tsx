@@ -3,12 +3,25 @@ import { useDrag } from "react-dnd";
 import { useTasks } from "../context/TaskContext";
 import styles from "../styles/TaskCard.module.css";
 
+import {
+  FaExclamationCircle,
+  FaExclamationTriangle,
+  FaCircle,
+} from "react-icons/fa";
+
 interface TaskCardProps {
   id: string;
   title: string;
+  priority: "High" | "Medium" | "Low";
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
+const priorityIcons = {
+  High: <FaExclamationCircle className={styles.high} />,
+  Medium: <FaExclamationTriangle className={styles.medium} />,
+  Low: <FaCircle className={styles.low} />,
+};
+
+const TaskCard: React.FC<TaskCardProps> = ({ id, title, priority }) => {
   const [{ isDragging }, drag] = useDrag({
     type: "TASK",
     item: { id },
@@ -30,7 +43,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
   };
 
   const handleSaveClick = () => {
-    updateTask(id, newTitle);
+    updateTask(id, newTitle, priority);
     setIsEditing(false);
   };
 
@@ -43,6 +56,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title }) => {
       ref={drag as unknown as React.Ref<HTMLDivElement>}
       className={`${styles.taskCard} ${isDragging ? styles.dragging : ""}`}
     >
+      <div className={styles.priority}>
+        {priorityIcons[priority]} {priority}
+      </div>
       {isEditing ? (
         <div className={styles.editContainer}>
           <input

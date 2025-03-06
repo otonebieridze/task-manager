@@ -29,7 +29,12 @@ const Column: React.FC<ColumnProps> = ({ title, columnId }) => {
     >
       <h2>{title}</h2>
       {filteredTasks.map((task) => (
-        <TaskCard key={task.id} id={task.id} title={task.title} />
+        <TaskCard
+          key={task.id}
+          id={task.id}
+          title={task.title}
+          priority={task.priority}
+        />
       ))}
     </div>
   );
