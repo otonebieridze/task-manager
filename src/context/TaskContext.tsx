@@ -8,6 +8,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import toast from "react-hot-toast";
 
 interface Task {
   id: string;
@@ -65,6 +66,8 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
   const addTask = async (title: string, column: string) => {
     const docRef = await addDoc(collection(db, "tasks"), { title, column });
     setTasks([...tasks, { id: docRef.id, title, column }]);
+
+    toast.success("Task added successfully!");
   };
 
   const updateTask = async (taskId: string, newTitle: string) => {
@@ -74,11 +77,15 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
       )
     );
     await updateDoc(doc(db, "tasks", taskId), { title: newTitle });
+
+    toast("Task updated!", { icon: "✏️", style: { background: "#FFA500" } });
   };
 
   const deleteTask = async (taskId: string) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
     await deleteDoc(doc(db, "tasks", taskId));
+
+    toast.error("Task deleted!");
   };
 
   return (
