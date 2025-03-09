@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Column from "./Column";
 import styles from "../styles/Board.module.css";
-import { useTasks } from "../context/TaskContext";
+import { useTaskManagement } from "../hooks/useTaskManagement";
 
 const Board: React.FC = () => {
-  const { addTask } = useTasks();
-  const [taskTitle, setTaskTitle] = useState("");
-  const [priority, setPriority] = useState<"High" | "Medium" | "Low">("Medium");
-  const [taskColumn, setTaskColumn] = useState("todo");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (taskTitle.trim() === "") {
-      setTaskTitle("");
-      return;
-    }
-    addTask(taskTitle, taskColumn, priority);
-    setTaskTitle("");
-    setTaskColumn("todo");
-  };
+  const {
+    taskTitle,
+    setTaskTitle,
+    priority,
+    setPriority,
+    taskColumn,
+    setTaskColumn,
+    handleSubmit,
+  } = useTaskManagement();
 
   return (
     <div className={styles.board}>
