@@ -28,11 +28,17 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const querySnapshot = await getDocs(collection(db, "tasks"));
-      setTasks(
-        querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Task))
-      );
+      try {
+        const querySnapshot = await getDocs(collection(db, "tasks"));
+        setTasks(
+          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Task))
+        );
+      } catch(error) {
+        console.error("Error fetching tasks:", error);
+        toast.error("Failed to load tasks.");
+      }
     };
+
     fetchTasks();
   }, []);
 
