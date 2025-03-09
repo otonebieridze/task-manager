@@ -3,18 +3,7 @@ import { useDrag } from "react-dnd";
 import { useTasks } from "../context/TaskContext";
 import styles from "../styles/TaskCard.module.css";
 import { TaskCardProps } from "../types/taskCard";
-
-import {
-  FaExclamationCircle,
-  FaExclamationTriangle,
-  FaCircle,
-} from "react-icons/fa";
-
-const priorityIcons = {
-  High: <FaExclamationCircle className={styles.high} />,
-  Medium: <FaExclamationTriangle className={styles.medium} />,
-  Low: <FaCircle className={styles.low} />,
-};
+import { PriorityIcon } from "./PriorityIcon";
 
 const TaskCard: React.FC<TaskCardProps> = ({ id, title, priority }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -52,7 +41,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title, priority }) => {
       className={`${styles.taskCard} ${isDragging ? styles.dragging : ""}`}
     >
       <div className={styles.priority}>
-        {priorityIcons[priority]} {priority}
+        <PriorityIcon priority={priority} /> {priority}
       </div>
       {isEditing ? (
         <div className={styles.editContainer}>
