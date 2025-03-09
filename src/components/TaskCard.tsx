@@ -2,18 +2,13 @@ import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useTasks } from "../context/TaskContext";
 import styles from "../styles/TaskCard.module.css";
+import { TaskCardProps } from "../types/taskCard";
 
 import {
   FaExclamationCircle,
   FaExclamationTriangle,
   FaCircle,
 } from "react-icons/fa";
-
-interface TaskCardProps {
-  id: string;
-  title: string;
-  priority: "High" | "Medium" | "Low";
-}
 
 const priorityIcons = {
   High: <FaExclamationCircle className={styles.high} />,

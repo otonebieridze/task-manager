@@ -3,11 +3,7 @@ import { useDrop } from "react-dnd";
 import TaskCard from "./TaskCard";
 import styles from "../styles/Column.module.css";
 import { useTasks } from "../context/TaskContext";
-
-interface ColumnProps {
-  title: string;
-  columnId: string;
-}
+import { ColumnProps } from "../types/column";
 
 const Column: React.FC<ColumnProps> = ({ title, columnId }) => {
   const { tasks, moveTask } = useTasks();

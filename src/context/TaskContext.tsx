@@ -9,29 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
-
-interface Task {
-  id: string;
-  title: string;
-  column: string;
-  priority: "High" | "Medium" | "Low";
-}
-
-interface TaskContextType {
-  tasks: Task[];
-  moveTask: (taskId: string, newColumn: string) => void;
-  addTask: (
-    title: string,
-    column: string,
-    priority: "High" | "Medium" | "Low"
-  ) => void;
-  deleteTask: (taskId: string) => void;
-  updateTask: (
-    taskId: string,
-    newTitle: string,
-    priority: "High" | "Medium" | "Low"
-  ) => void;
-}
+import { Task, TaskContextType } from "../types/context";
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
