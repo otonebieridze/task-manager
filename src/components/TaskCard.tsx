@@ -41,7 +41,14 @@ const TaskCard: React.FC<TaskCardProps> = ({ id, title, priority }) => {
       className={`${styles.taskCard} ${isDragging ? styles.dragging : ""}`}
     >
       <div className={styles.priority}>
-        <PriorityIcon priority={priority} /> {priority}
+        <PriorityIcon priority={priority} />{" "}
+        <span
+          className={
+            styles[priority.charAt(0).toLowerCase() + priority.slice(1)]
+          }
+        >
+          {priority}
+        </span>
       </div>
       {isEditing ? (
         <div className={styles.editContainer}>

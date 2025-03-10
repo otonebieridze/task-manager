@@ -89,8 +89,7 @@
 
 .priority {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  gap: 7px;
   font-weight: bold;
 }
 .high {
