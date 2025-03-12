@@ -9,8 +9,14 @@
   transition: all 0.3s ease-in-out;
 }
 
+[data-theme="dark"] .column {
+  background-color: linear-gradient(135deg, #2b2b2b, #1e1e1e);
+  border-color: var(--dark-border);
+  box-shadow: 3px 3px 10px var(--dark-shadow);
+}
+
 .column.isOver {
-  background-color: lightblue;
+  background-color: rgba(0, 123, 255, 0.15);
 }
 
 .column h2 {

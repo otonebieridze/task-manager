@@ -12,7 +12,11 @@
 }
 .taskCard:hover {
   box-shadow: 4px 4px 12px var(--card-shadow);
-  transform: scale(1.03);
+  transform: scale(1.01);
+}
+
+[data-theme="dark"] .taskCard {
+  background-color: var(--dark-card);
 }
 
 .taskCard.dragging {
@@ -23,6 +27,7 @@
 .taskCard div {
   font-size: 17px;
   font-weight: 500;
+  color: var(--primary-text);
 }
 
 .editContainer {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Column from "./Column";
 import styles from "../styles/Board.module.css";
 import { useTaskManagement } from "../hooks/useTaskManagement";
@@ -14,8 +14,20 @@ const Board: React.FC = () => {
     handleSubmit,
   } = useTaskManagement();
 
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
+
   return (
     <div className={styles.board}>
+      <button className={styles["theme-toggle"]} onClick={toggleTheme}>
+        {theme === "light" ? "Dark" : "Light"} Mode
+      </button>
+
       <form onSubmit={handleSubmit} className={styles.taskForm}>
         <input
           type="text"
