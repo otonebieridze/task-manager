@@ -1,3 +1,22 @@
+:root {
+  --primary-bg: #f9f9f9;
+  --primary-text: #222222;
+  --secondary-bg: #ffffff;
+  --secondary-text: #444444;
+  --border-color: #dddddd;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --button-bg: #007bff;
+  --button-text: #ffffff;
+  --button-hover: #0056b3;
+  --accent-color: #007bff;
+}
+
+body {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  font-family: 'Inter', sans-serif;
+}
+
 .board {
   display: flex;
   flex-direction: column;
@@ -8,8 +27,6 @@
   width: 100%;
   max-width: 900px;
   min-height: 80vh;
-  background-color: #f4f4f4;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
@@ -24,34 +41,43 @@
   flex-grow: 1;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
   outline: none;
   transition: border-color 0.2s ease-in-out;
 }
 
-.taskForm input:focus {
-  border-color: #007bff;
+.taskForm select {
+  padding: 4px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+}
+
+.taskForm input:focus, .taskForm select:focus {
+  border-color: var(--accent-color);
 }
 
 .taskForm button {
-  padding: 10px 16px;
+  padding: 10px 15px;
   font-size: 16px;
+  font-weight: bold;
   border: none;
-  background-color: #007bff;
-  color: white;
+  background: var(--button-bg);
+  color: var(--button-text);
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .taskForm button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-hover);
+  transform: scale(1.05);
 }
 
 .columns {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   width: 100%;
   justify-content: center;
+  margin-top: 18px;
 }

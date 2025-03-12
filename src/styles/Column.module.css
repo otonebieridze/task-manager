@@ -2,9 +2,11 @@
   width: 300px;
   min-height: 400px;
   padding: 16px;
+  background-color: linear-gradient(135deg, #ffffff, #f1f1f1);
+  border: 1px solid var(--border-color);
+  box-shadow: 3px 3px 10px var(--card-shadow);
   border-radius: 8px;
-  background-color: #f0f0f0;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease-in-out;
 }
 
 .column.isOver {
@@ -13,4 +15,5 @@
 
 .column h2 {
   text-align: center;
+  color: var(--primary-text);
 }
