@@ -13,6 +13,8 @@ const Board: React.FC = () => {
     taskColumn,
     setTaskColumn,
     handleSubmit,
+    error,
+    setError,
   } = useTaskManagement();
 
   return (
@@ -24,7 +26,11 @@ const Board: React.FC = () => {
           type="text"
           placeholder="Enter task title"
           value={taskTitle}
-          onChange={(e) => setTaskTitle(e.target.value)}
+          onChange={(e) => {
+            setTaskTitle(e.target.value);
+            setError(false);
+          }}
+          className={error ? styles["input-error"] : ""}
         />
         <select
           value={priority}
@@ -45,6 +51,9 @@ const Board: React.FC = () => {
           <option value="done">Done</option>
         </select>
         <button type="submit">Add Task</button>
+        {error && (
+          <p className={styles["error-message"]}>Task title cannot be empty!</p>
+        )}
       </form>
 
       <div className={styles.columns}>
